@@ -62,3 +62,17 @@ export async function createNewOrderDB(body) {
 
     return result;
 }
+
+export async function checkClientId(clientId){
+
+	const result = await db.query(`SELECT * FROM clients WHERE id = $1;`, [clientId]);
+
+	return result;
+}
+
+export async function checkCakeId(cakeId){
+
+	const result = await db.query(`SELECT * FROM cakes WHERE id = $1;`, [cakeId]);
+
+	return result;
+}

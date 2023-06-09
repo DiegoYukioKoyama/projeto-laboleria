@@ -1,4 +1,4 @@
-import { getAllOrdersDB, getOrderByDateDB, getOrderByIdDB } from "../repositories/orders.repository.js";
+import { checkClientId, createNewOrderDB, getAllOrdersDB, getOrderByDateDB, getOrderByIdDB } from "../repositories/orders.repository.js";
 
 export async function getAllOrders(req, res) {
     
@@ -28,7 +28,9 @@ export async function getOrderById(req, res){
     try {
         const order = await getOrderByIdDB(id);
 
-        if (order.rowCount === 0) return res.status(404).send("pedido não encontrado!" );
+        if (order.rowCount === 0){
+            return res.status(404).send("pedido não encontrado!" );
+        }
 
         res.status(200).send(order.rows[0]);
     } catch (error) {
@@ -36,3 +38,29 @@ export async function getOrderById(req, res){
     }
 }
 
+export async function createNewOrder(req, res){
+    
+    const {clienteId, cakeId, quantity, totalPrice} = req.body;
+
+    try {
+        const clientIdExist = await checkClientId(clienteId);
+        if(!clientIdExist){
+            return res.status(404).send("Cliente não encontrado!");
+        }
+
+        const cakeIdExist = await checkClientId(cakeId);
+        if(!cakeIdExist){
+            return res.status(404).send("Bolo não encontrado!");
+        }
+
+        if(quantity <= 0 || quantity >= 5){
+            return res.status(400).send("Quantidade deve ser entre 1 e 5!");
+        }
+        
+        const newOrder = await createNewOrderDB(clienteId, cakeId, quantity, totalPrice);
+
+        res.status(201).send();
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+}
