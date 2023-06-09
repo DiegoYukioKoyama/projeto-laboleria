@@ -1,15 +1,12 @@
 import express from "express";
 import cors from "cors";
+import router from "./routes/index.routes.js";
 
 const app = express();
 
-//configs
 app.use(cors());
-app.use(express.json);
-
-//Endpoints
-
-
+app.use(express.json());
+app.use(router);
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Rodando servidor na porta ${PORT}`));
