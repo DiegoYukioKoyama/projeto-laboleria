@@ -7,6 +7,6 @@ export async function createClientDB(name, address, phone){
 
 export async function getClientOrdersDB(id){
 
-    const result = await db.query(`SELECT * FROM orders WHERE clientId = $1;`, [id]);
+    const result = await db.query(`SELECT * FROM orders WHERE "clientId" = $1;`, [id]);
     return result;
 }
