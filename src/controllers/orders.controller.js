@@ -1,4 +1,4 @@
-import { getAllOrdersDB, getOrderByDateDB } from "../repositories/orders.repository.js";
+import { getAllOrdersDB, getOrderByDateDB, getOrderByIdDB } from "../repositories/orders.repository.js";
 
 export async function getAllOrders(req, res) {
     
@@ -21,10 +21,18 @@ export async function getAllOrders(req, res) {
     }
 } 
 
-export async function teste(req, res){
+export async function getOrderById(req, res){
+    
+    const {id} = req.params;
+
     try {
-        res.status(200).send("ok")
+        const order = await getOrderByIdDB(id);
+
+        if (order.rowCount === 0) return res.status(404).send("pedido não encontrado!" );
+
+        res.status(200).send(order.rows[0]);
     } catch (error) {
-        res.status(500).send(error.message)
+        res.status(500).send(error.message);
     }
 }
+
