@@ -57,8 +57,7 @@ export async function createNewOrderDB(body) {
     const {clientId, cakeId, quantity, totalPrice} = body;
 
     const result = await db.query(`INSERT INTO orders ("clientId", "cakeId", quantity, "totalPrice")
-    VALUES ($1, $2, $3, $4);
-    [clientId, cakeId, quantity, totalPrice]`);
+    VALUES ($1, $2, $3, $4);`, [clientId, cakeId, quantity, totalPrice]);
 
     return result;
 }
