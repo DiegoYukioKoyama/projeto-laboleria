@@ -1,4 +1,3 @@
-import client from "pg/lib/native/client.js";
 import { createClientDB, getClientOrdersDB } from "../repositories/clients.repository.js";
 
 export async function createClient(req, res){
@@ -15,7 +14,7 @@ export async function createClient(req, res){
             return res.status(400).send("Por favor preencha o endereço!");
         }
 
-        if(phone.lenght <= 10 || phone.lenght >= 11){
+        if(phone.lenght < 10 || phone.lenght > 11){
             return res.status(400).send("O tefone dever ter entre 11 e 12 digitos!");
         }
 

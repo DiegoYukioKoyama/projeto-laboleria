@@ -52,14 +52,11 @@ export async function getOrderByIdDB(orderId) {
     return result;
 }
 
-export async function createNewOrderDB(body) {
-
-    const {clientId, cakeId, quantity, totalPrice} = body;
+export async function createNewOrderDB(clientId, cakeId, quantity, totalPrice) {
 
     const result = await db.query(`INSERT INTO orders ("clientId", "cakeId", quantity, "totalPrice")
     VALUES ($1, $2, $3, $4);`, [clientId, cakeId, quantity, totalPrice]);
 
-    return result;
 }
 
 export async function checkClientId(clientId){

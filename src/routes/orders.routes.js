@@ -6,7 +6,7 @@ import { newOrder } from "../schemas/new.order.schema.js";
 
 const ordersRouter = Router();
 
-ordersRouter.get("/orders",validateSchema(dateSchema), getAllOrders);
+ordersRouter.get("/orders", validateSchema(dateSchema), getAllOrders);
 ordersRouter.get("/orders/:id", getOrderById);
 ordersRouter.post("/order", validateSchema(newOrder), createNewOrder);
 

@@ -5,7 +5,7 @@ import { createClient, getClientOrders } from "../controllers/clients.controller
 
 const clientsRouter = Router();
 
-clientsRouter.post("/clients", validateSchema(createClientSchema), createClient);
+clientsRouter.post("clients", validateSchema(createClientSchema),createClient);
 clientsRouter.get("/clients/:id/orders", getClientOrders);
 
 export default clientsRouter;
